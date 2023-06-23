@@ -18,21 +18,22 @@ public class ListReferenceBased implements ListInterface
   	// creates an empty list
   	{
 		//YOUR CODE GOES HERE.
-
+        numItems = 0;
+        head = null;
   	}  // end default constructor
-
+   
   	public boolean isEmpty()
   	// Determines whether a list is empty
   	{
 		//YOUR CODE GOES HERE.
-		return true;
+		return numItems == 0;
   	} // end isEmpty
 
   	public int size()
   	// Returns the number of items that are in a list
   	{
 		//YOUR CODE GOES HERE.
-  		return 0;
+  		return numItems;
   	}  // end size
 
     private Node find(int index)
@@ -72,12 +73,16 @@ public class ListReferenceBased implements ListInterface
         // insert the new node containing item at
         // beginning of list
 		//YOUR CODE GOES HERE.
+          Node newNode = new Node(item, head);
+          head = newNode;
       }
       else {
         Node prev = find(index-1);
         // insert the new node containing item after
         // the node that prev references
-		//YOUR CODE GOES HERE.
+		    //YOUR CODE GOES HERE.
+        Node newNode = new Node(item,prev.getNext());
+        prev.setNext(newNode);
       } // end if
       numItems++;
     }
@@ -93,9 +98,13 @@ public class ListReferenceBased implements ListInterface
       if (index == 0) {
         // delete the first node from the list
 		//YOUR CODE GOES HERE.
+          head.getNext();
       }
       else {
 		//YOUR CODE GOES HERE.
+          Node prev = find(index-1);
+          Node curr = prev.getNext();
+          prev.setNext(curr.getNext());
       } // end if
       numItems--;
     } // end if
@@ -110,13 +119,21 @@ public class ListReferenceBased implements ListInterface
     // unreachable and thus marked for garbage
     // collection
 	//YOUR CODE GOES HERE.
+    head  = null; 
+    numItems = 0;
   } // end removeAll
 
 
   public String toString()
   {
 	//YOUR CODE GOES HERE.
-	return null;
+    StringBuilder result = new StringBuilder();
+    Node current = head;
+    while (current != null) {
+      result.append(current.getItem()).append(" ");
+      current = current.getNext();
+    }
+	  return result.toString();
   }
 
 
